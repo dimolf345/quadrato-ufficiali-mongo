@@ -1,0 +1,21 @@
+{
+  "name": "quadrato-ufficiali-mongo",
+  "version": "1.0.0",
+  "description": "A Full Stack application with Angular and Express",
+  "main": "server/dist/server.js",
+  "scripts": {
+    "install": "npm install --prefix server",
+    "build": "npm run build --prefix server",
+    "start": "npm run start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimolf345/quadrato-ufficiali-mongo.git"
+  },
+  "author": "Luca Di Molfetta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dimolf345/quadrato-ufficiali-mongo/issues"
+  },
+  "homepage": "https://github.com/dimolf345/quadrato-ufficiali-mongo#readme"
+}
