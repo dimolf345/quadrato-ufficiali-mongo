@@ -1,13 +1,19 @@
-import express, { Express, Request, Response } from 'express'
+import http from 'http'
+import app from './app'
+import connectDB from './mongoDB'
 
-const app: Express = express()
+require('dotenv').config()
 
 const PORT = process.env.PORT || 8000
+const nodeEnv = process.env.NODE_ENV || 'production'
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Tua mamma è una puttana')
-})
+const server = http.createServer(app)
 
-app.listen(PORT, () => {
-  console.log('Server is started on port ', PORT)
-})
+async function startServer () {
+  await connectDB(nodeEnv)
+  server.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`)
+  })
+}
+
+startServer()
