@@ -1,0 +1,49 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
+@import url("https://fonts.googleapis.com/css2?family=Alata:wght@300;400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Homemade+Apple&display=swap");
+@import "./my-theme.scss";
+
+html,
+body {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Alata", "Helvetica Neue", sans-serif;
+  font-weight: 500;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.home {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.color-primary {
+  color: map-get($my-primary, 500);
+}
+
+.color-warn {
+  color: map-get($my-warn, 500);
+}
+
+.mat-mdc-form-field {
+  display: block !important;
+  margin-bottom: 20px;
+}
+
+.mat-mdc-card-title {
+  margin: 20px 0 0 0 !important;
+}
