@@ -1,8 +1,8 @@
 import { Mongoose, Schema } from 'mongoose'
-
+import { Movimento } from '../types/movimento'
 const mongoose: Mongoose = require('mongoose')
 
-const movimentoSchema: Schema = new mongoose.Schema({
+const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
   creato_da: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ufficiale'

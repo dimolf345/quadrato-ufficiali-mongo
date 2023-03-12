@@ -1,9 +1,10 @@
 import { Mongoose, Schema } from 'mongoose'
+import { Ufficiale } from '../types/officer'
 
 const mongoose: Mongoose = require('mongoose')
 const gradi = require('../../utils/gradi')
 
-const ufficialeSchema = new Schema({
+const ufficialeSchema = new Schema<Ufficiale>({
   nome: {
     type: String,
     required: [true, 'Inserire il nome dell\'ufficiale'],

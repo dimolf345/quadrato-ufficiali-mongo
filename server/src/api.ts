@@ -1,5 +1,9 @@
 import express, { Router } from 'express'
 
+import { ufficialiRouter } from './routes/ufficiali/ufficiali.router'
+
 const api: Router = express.Router()
 
-module.exports = api
+api.use('/ufficiali', ufficialiRouter)
+
+export default api
