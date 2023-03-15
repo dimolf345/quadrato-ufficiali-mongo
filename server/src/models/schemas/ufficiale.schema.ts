@@ -1,8 +1,6 @@
-import { Mongoose, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { Ufficiale } from '../types/officer'
-
-const mongoose: Mongoose = require('mongoose')
-const gradi = require('../../utils/gradi')
+import gradi from '../../utils/gradi'
 
 const ufficialeSchema = new Schema<Ufficiale>({
   nome: {
@@ -61,9 +59,10 @@ const ufficialeSchema = new Schema<Ufficiale>({
   },
   attivo: {
     type: Boolean,
-    default: true,
-    required: true
+    default: true
   }
+}, {
+  timestamps: true
 })
 
 function controllaEmailMarina (email: string): boolean {
@@ -75,6 +74,4 @@ function controllaDataOdierna (data: Date) {
   return data <= new Date()
 }
 
-const ufficialeModel = mongoose.model('Ufficiale', ufficialeSchema)
-
-module.exports = ufficialeModel
+export default mongoose.model('Ufficiale', ufficialeSchema, 'ufficiali')

@@ -1,8 +1,8 @@
-import express, { Router, Request, Response, NextFunction } from 'express'
-import { creaFiltriSortCollezione } from '../../utils/query'
+import express, { Router } from 'express'
+import { cercaUfficiali, creaNuovoUfficiale } from './ufficiali.controller'
 
 export const ufficialiRouter: Router = express.Router()
 
-ufficialiRouter.get('/', (req: Request, res: Response, next: NextFunction) => {
-  const { filtri, sort } = creaFiltriSortCollezione(req)
-})
+ufficialiRouter.get('/', cercaUfficiali)
+
+ufficialiRouter.post('/', creaNuovoUfficiale)
