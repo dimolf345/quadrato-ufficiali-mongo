@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { Ufficiale } from '../types/officer'
+import { Ufficiale } from '../types/ufficiale'
 import gradi from '../../utils/gradi'
 
 const ufficialeSchema = new Schema<Ufficiale>({
