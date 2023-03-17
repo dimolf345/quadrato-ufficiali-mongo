@@ -10,7 +10,7 @@ export async function connectDB (mode: string) {
   switch (mode) {
     case 'development':
       console.log('Connecting to local development database')
-      dbURI = process.env.MONGO_LOCAL_DABASE
+      dbURI = process.env.MONGO_LOCAL_DATABASE
       break
     case 'test':
       console.log('Connecting to test database')

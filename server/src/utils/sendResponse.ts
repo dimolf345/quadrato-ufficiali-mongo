@@ -3,7 +3,9 @@ import { ErrorResponse, SuccessResponse } from '../models/types/response'
 
 export function sendResponseError (res: Response, errorObj: Partial<ErrorResponse>) {
   return res.status(errorObj.status || 500).json({
-    ...errorObj,
+    error: {
+      ...errorObj
+    },
     success: false
   })
 }

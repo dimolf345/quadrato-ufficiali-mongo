@@ -10,7 +10,7 @@ const nodeEnv = process.env.NODE_ENV || 'production'
 const server = http.createServer(app)
 
 async function startServer () {
-  await connectDB(nodeEnv)
+  await connectDB(nodeEnv.trim())
   server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
   })
