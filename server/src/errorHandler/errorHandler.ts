@@ -9,18 +9,24 @@ require('dotenv').config()
 const mode = process.env.NODE_ENV?.trim()
 
 export default function errorHandler (err: AppError, _: Request, res: Response, next: NextFunction) {
-  const erroreFiltrato = discriminaErrore(err)
   if (mode === 'development') {
-    return sendResponseError(res, erroreFiltrato)
+    console.log(err)
   }
+  const erroreFiltrato = discriminaErrore(err)
+  return sendResponseError(res, erroreFiltrato)
 }
 
-function discriminaErrore (err: AppError | Error | MongoError) :AppError {
+function discriminaErrore (err: AppError | Error | MongoError | Error.CastError) :AppError {
   if (err instanceof AppError) return err
+  if (err instanceof Error.ValidationError) {
+    return gesticiErroreCampiNonValidi(err)
+  }
+  if (err instanceof Error.CastError) {
+    return gestisciCastError(err)
+  }
   if (err instanceof MongoError) {
     if (err.code === 11000) {
-      const errore = gestisciErroreCampoUnico(err)
-      return errore
+      return gestisciErroreCampoUnico(err)
     }
   }
   return new AppError(500, 'Porca la madonna')
@@ -34,9 +40,17 @@ function gestisciErroreCampoUnico (err: any): AppError {
     values.push(el[1])
   })
   const messaggioErrore = `Errore! I campo/i ${fields.join(', ')}, che contiente/contengono il/i valore/i ${values.join(', ')}, deve/devono essere univoco/i.`
-  return {
-    name: 'Errore chiave duplicata',
-    status: StatusCodes.BAD_REQUEST,
-    message: messaggioErrore
-  }
+  return new AppError(StatusCodes.BAD_REQUEST, messaggioErrore, 'Campo non unico', err.stack)
+}
+
+function gesticiErroreCampiNonValidi (err: Error.ValidationError): AppError {
+  let message = 'La validazione dei dati inseriti non è riuscita:\n- '
+  const valErrors: string | string[] = Object.values(err.errors).map((field) => field.message)
+  message += valErrors.join('\n- ')
+  return new AppError(StatusCodes.BAD_REQUEST, message, 'Dati Invalidi', err.stack)
+}
+
+function gestisciCastError (err: Error.CastError) {
+  const message = `Invalid ${err.path} : ${err.value}`
+  return new AppError(StatusCodes.BAD_REQUEST, message, 'Dati invalidi', err.stack)
 }

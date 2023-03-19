@@ -1,19 +1,48 @@
 import { NextFunction, Request, Response } from 'express'
 import { sendResponseSuccess } from '../../utils/sendResponse'
-import Ufficiale from '../../models/schemas/ufficiale.schema'
+import ufficialeSchema from '../../models/schemas/ufficiale.schema'
 import { catchAsync } from '../../utils/catchAsync'
 import { StatusCodes } from 'http-status-codes'
+import { creaFiltriSortCollezione, creaPagine } from '../../utils/query'
+import { Ufficiale } from '../../models/types/ufficiale'
+import { creaRegExpFiltri } from '../../utils/creaRegexpFiltri'
+import { AppError } from '../../errorHandler/ErrorClass'
 
 export const creaNuovoUfficiale = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  const nuovoUfficiale = await Ufficiale.create(req.body)
+  const nuovoUfficiale = await ufficialeSchema.create(req.body)
   if (nuovoUfficiale) {
     return sendResponseSuccess(res, {
       status: StatusCodes.CREATED,
-      data: nuovoUfficiale
+      data: [nuovoUfficiale]
     })
   }
 })
 
 export const cercaUfficiali = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-  console.log('Porca madonna')
+  const { skip, limit } = creaPagine(req)
+  const { filtri, sort } = creaFiltriSortCollezione<Ufficiale>(req)
+  let ufficiali
+  if (filtri.nome || filtri.cognome) {
+    // creaRegExpFiltri trasforma la ricerca da case sensitive a case insensitive
+    const filtriRegexp = creaRegExpFiltri<Ufficiale>(filtri, ['nome', 'cognome'])
+    ufficiali = await ufficialeSchema.find(filtriRegexp).limit(limit).sort(sort).skip(skip)
+  } else {
+    ufficiali = await ufficialeSchema.find(filtri).limit(limit).sort(sort).skip(skip)
+  }
+  return sendResponseSuccess(res, {
+    status: StatusCodes.OK,
+    data: ufficiali
+  })
+})
+
+export const cercaUfficialePerId = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params
+  const ufficiale = await ufficialeSchema.findById(id)
+  if (!ufficiale) {
+    throw new AppError(StatusCodes.NOT_FOUND, "L'ufficiale cercato non è presente nel DB!", 'Errore ricerca')
+  }
+  return sendResponseSuccess(res, {
+    status: StatusCodes.OK,
+    data: [ufficiale]
+  })
 })

@@ -1,12 +1,12 @@
-import { ObjectId } from 'mongoose'
+import { Schema } from 'mongoose'
 import gradi from '../../utils/gradi'
 
 export type Ufficiale = {
-  id?: ObjectId;
+  _id?: Schema.Types.ObjectId;
   nome: string;
   cognome: string;
   grado: typeof gradi[number]
-  data_imbarco: Date
+  data_imbarco: Date;
   email: string;
   ddq: boolean;
   pt?: string;

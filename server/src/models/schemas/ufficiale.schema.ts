@@ -6,12 +6,12 @@ const ufficialeSchema = new Schema<Ufficiale>({
   nome: {
     type: String,
     required: [true, 'Inserire il nome dell\'ufficiale'],
-    minLenght: 3
+    minlength: [3, 'Il nome deve contenere almeno 3 caratteri']
   },
   cognome: {
     type: String,
     required: [true, 'Inserire il cognome dell\'ufficiale'],
-    minLenght: 2
+    minlength: [2, 'Il cognome deve contenere almeno 2 caratteri']
   },
   grado: {
     type: String,
@@ -70,7 +70,7 @@ function controllaEmailMarina (email: string): boolean {
   return mailRegex.test(email)
 }
 
-function controllaDataOdierna (data: Date) {
+function controllaDataOdierna (data: Date | string) {
   return data <= new Date()
 }
 

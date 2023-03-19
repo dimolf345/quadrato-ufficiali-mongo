@@ -14,10 +14,11 @@ export function creaPagine (req: Request) {
   }
 }
 
-export function creaFiltriSortCollezione (req: Request): {filtri: Object, sort?: string} {
+export function creaFiltriSortCollezione<T> (req: Request): {filtri: Partial<T>, sort?: string} {
   if (Object.keys(req.query).length === 0) {
     return {
-      filtri: {}
+      filtri: {},
+      sort: '-createdAt'
     }
   }
   let ordinaPer: string = ''
@@ -30,7 +31,7 @@ export function creaFiltriSortCollezione (req: Request): {filtri: Object, sort?:
     ordinaPer = (req.query.sort as string).split(',').join(' ')
   }
   return {
-    filtri: Object.keys(parametriQuery).length !== 0 ? parametriQuery : {},
+    filtri: Object.keys(parametriQuery).length !== 0 ? parametriQuery as Partial<T> : {},
     sort: ordinaPer || '-createdAt'
   }
 }
