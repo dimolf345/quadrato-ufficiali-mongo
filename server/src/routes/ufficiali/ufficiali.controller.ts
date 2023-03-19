@@ -46,3 +46,18 @@ export const cercaUfficialePerId = catchAsync(async (req: Request, res: Response
     data: [ufficiale]
   })
 })
+
+export const aggiornaUfficialePerId = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  const { id } = req.params
+  const ufficialeAggiornato = await ufficialeSchema.findByIdAndUpdate(id, req.body, {
+    new: true
+  })
+  if (ufficialeAggiornato) {
+    return sendResponseSuccess(res, {
+      status: StatusCodes.OK,
+      data: [ufficialeAggiornato]
+    })
+  } else {
+    throw new AppError(StatusCodes.INTERNAL_SERVER_ERROR, "Errore nell'aggiornamento dei dati", 'Aggiornamento non riuscito')
+  }
+})

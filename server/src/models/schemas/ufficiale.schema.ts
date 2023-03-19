@@ -30,6 +30,7 @@ const ufficialeSchema = new Schema<Ufficiale>({
     type: String,
     required: [true, 'Inserire l\'indirizzo email istituzionale'],
     unique: true,
+    immutable: true,
     validate: {
       validator: controllaEmailMarina,
       message: (props: any) => `${props.value} non è un valido indirizzo email istituzionale`

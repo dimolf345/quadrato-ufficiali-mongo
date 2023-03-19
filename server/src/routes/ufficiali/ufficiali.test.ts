@@ -15,6 +15,7 @@ describe('Testing Ufficiali endpoint', () => {
   })
 
   afterAll(async () => {
+    ufficialeSchema.deleteMany()
     await disconnectDB()
   })
   // eslint-disable-next-line no-undef
@@ -113,6 +114,26 @@ describe('Testing Ufficiali endpoint', () => {
       expect(response.status).toBe(StatusCodes.OK)
       expect(response.body.data).toHaveLength(1)
       expect(response.body.data[0]).toMatchObject(ufficiale[0])
+    })
+  })
+
+  describe('PUT /ufficiali/:id', () => {
+    test('Aggiorna correttamente un ufficiale', async () => {
+      const ufficialeCasuale = await ufficialeSchema.findOne<Ufficiale>({})
+      const { _id } = ufficialeCasuale!
+      const nuoviDati = {
+        nome: 'Nuovo',
+        cognome: 'Ufficiale'
+      }
+
+      const response = await request(app).put(`${API_BASE_PATH}/${_id}`).send(nuoviDati)
+
+      expect(response.status).toBe(StatusCodes.OK)
+      const ufficialeAggiornato = response.body.data[0] as Ufficiale
+      expect(ufficialeAggiornato).toMatchObject({
+        ...ufficialeAggiornato,
+        ...nuoviDati
+      })
     })
   })
 })
