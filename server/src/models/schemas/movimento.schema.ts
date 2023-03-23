@@ -5,7 +5,8 @@ const mongoose: Mongoose = require('mongoose')
 const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
   creato_da: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Ufficiale'
+    ref: 'Ufficiale',
+    required: [true, "Inserire l'ufficiale responsabile del movimento!"]
   },
   data_creazione: {
     type: Date,
@@ -29,6 +30,4 @@ const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
   }
 })
 
-const movimentoModel = mongoose.model('Movimento', movimentoSchema)
-
-module.exports = movimentoModel
+export default mongoose.model<Movimento>('Movimento', movimentoSchema)

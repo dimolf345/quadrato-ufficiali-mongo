@@ -7,7 +7,7 @@ type CustomResponse = {
 };
 
 export type SuccessResponse<T> = CustomResponse & {
-  data: Array<T>
+  data: Array<T> | T
 }
 
 export type ErrorResponse = CustomResponse & {

@@ -13,7 +13,7 @@ export const creaNuovoUfficiale = catchAsync(async (req: Request, res: Response,
   if (nuovoUfficiale) {
     return sendResponseSuccess(res, {
       status: StatusCodes.CREATED,
-      data: [nuovoUfficiale]
+      data: nuovoUfficiale
     })
   }
 })
@@ -43,7 +43,7 @@ export const cercaUfficialePerId = catchAsync(async (req: Request, res: Response
   }
   return sendResponseSuccess(res, {
     status: StatusCodes.OK,
-    data: [ufficiale]
+    data: ufficiale
   })
 })
 
@@ -55,7 +55,7 @@ export const aggiornaUfficialePerId = catchAsync(async (req: Request, res: Respo
   if (ufficialeAggiornato) {
     return sendResponseSuccess(res, {
       status: StatusCodes.OK,
-      data: [ufficialeAggiornato]
+      data: ufficialeAggiornato
     })
   } else {
     throw new AppError(StatusCodes.INTERNAL_SERVER_ERROR, "Errore nell'aggiornamento dei dati", 'Aggiornamento non riuscito')
