@@ -3,9 +3,23 @@ require('dotenv').config()
 
 const mongoose: Mongoose = require('mongoose')
 
-async function connectDB (mode: string) {
+export async function connectDB (mode: string) {
   mongoose.set('strictQuery', false)
-  const dbURI = mode.trim() === 'development' ? process.env.MONGO_LOCAL_DATABASE : process.env.MONGO_CLOUD_DATABASE
+  let dbURI
+
+  switch (mode) {
+    case 'development':
+      console.log('Connecting to local development database')
+      dbURI = process.env.MONGO_LOCAL_DATABASE
+      break
+    case 'test':
+      console.log('Connecting to test database')
+      dbURI = process.env.MONGO_LOCAL_TEST_DATABASE
+      break
+    default:
+      console.log('Connecting to production database')
+      dbURI = process.env.MONGO_CLOUD_DATABASE
+  }
 
   mongoose.connection.once('open', () => {
     console.log('MongoDB connection ready')
@@ -18,4 +32,6 @@ async function connectDB (mode: string) {
   await mongoose.connect(dbURI || 'development')
 }
 
-export default connectDB
+export async function disconnectDB () {
+  await mongoose.disconnect()
+}

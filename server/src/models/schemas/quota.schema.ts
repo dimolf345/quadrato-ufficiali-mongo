@@ -1,8 +1,9 @@
 import { Mongoose, Schema } from 'mongoose'
+import { Quota } from '../types/quota'
 
 const mongoose: Mongoose = require('mongoose')
 
-const quotaSchema = new Schema({
+const quotaSchema = new Schema<Quota>({
   creato_da: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Ufficiale',

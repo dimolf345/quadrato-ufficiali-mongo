@@ -1,18 +1,17 @@
-import { Mongoose, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
+import { Ufficiale } from '../types/ufficiale'
+import gradi from '../../utils/gradi'
 
-const mongoose: Mongoose = require('mongoose')
-const gradi = require('../../utils/gradi')
-
-const ufficialeSchema = new Schema({
+const ufficialeSchema = new Schema<Ufficiale>({
   nome: {
     type: String,
     required: [true, 'Inserire il nome dell\'ufficiale'],
-    minLenght: 3
+    minlength: [3, 'Il nome deve contenere almeno 3 caratteri']
   },
   cognome: {
     type: String,
     required: [true, 'Inserire il cognome dell\'ufficiale'],
-    minLenght: 2
+    minlength: [2, 'Il cognome deve contenere almeno 2 caratteri']
   },
   grado: {
     type: String,
@@ -31,6 +30,7 @@ const ufficialeSchema = new Schema({
     type: String,
     required: [true, 'Inserire l\'indirizzo email istituzionale'],
     unique: true,
+    immutable: true,
     validate: {
       validator: controllaEmailMarina,
       message: (props: any) => `${props.value} non è un valido indirizzo email istituzionale`
@@ -60,9 +60,10 @@ const ufficialeSchema = new Schema({
   },
   attivo: {
     type: Boolean,
-    default: true,
-    required: true
+    default: true
   }
+}, {
+  timestamps: true
 })
 
 function controllaEmailMarina (email: string): boolean {
@@ -70,10 +71,8 @@ function controllaEmailMarina (email: string): boolean {
   return mailRegex.test(email)
 }
 
-function controllaDataOdierna (data: Date) {
+function controllaDataOdierna (data: Date | string) {
   return data <= new Date()
 }
 
-const ufficialeModel = mongoose.model('Ufficiale', ufficialeSchema)
-
-module.exports = ufficialeModel
+export default mongoose.model('Ufficiale', ufficialeSchema, 'ufficiali')
