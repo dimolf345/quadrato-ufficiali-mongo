@@ -18,11 +18,11 @@ export default function errorHandler (err: AppError, _: Request, res: Response, 
 
 function discriminaErrore (err: AppError | Error | MongoError | Error.CastError) :AppError {
   if (err instanceof AppError) return err
-  if (err instanceof Error.ValidationError) {
-    return gesticiErroreCampiNonValidi(err)
-  }
   if (err instanceof Error.CastError) {
     return gestisciCastError(err)
+  }
+  if (err instanceof Error.ValidationError) {
+    return gesticiErroreCampiNonValidi(err)
   }
   if (err instanceof MongoError) {
     if (err.code === 11000) {
@@ -51,6 +51,6 @@ function gesticiErroreCampiNonValidi (err: Error.ValidationError): AppError {
 }
 
 function gestisciCastError (err: Error.CastError) {
-  const message = `Invalid ${err.path} : ${err.value}`
+  const message = `I seguenti dati inseriti sono invalidi ${err.path} : ${err.value}`
   return new AppError(StatusCodes.BAD_REQUEST, message, 'Dati invalidi', err.stack)
 }

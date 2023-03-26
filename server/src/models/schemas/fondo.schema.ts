@@ -1,22 +1,36 @@
-import { Mongoose, Schema } from 'mongoose'
-import { Fondo } from '../types/fondo'
+import mongoose, { Schema } from 'mongoose'
+import { IFondo } from '../types/fondo'
 
-const mongoose: Mongoose = require('mongoose')
-
-const fondoSchema = new Schema<Fondo>({
+const fondoSchema = new Schema<IFondo>({
   saldo: {
     type: Number,
     required: true
   },
-  ultima_modifica: {
-    type: Date
-  },
   ultimi_movimenti: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'Movimento'
+    type: [Schema.Types.ObjectId],
+    ref: 'Movimento',
+    default: []
   }
+}, {
+  timestamps: true
 })
 
-const fondoModel = mongoose.model('Fondo', fondoSchema)
+fondoSchema.methods.aggiornaSaldoEMovimenti = async function (nuovoImporto: number, movimentoId: Schema.Types.ObjectId) {
+  this.saldo += nuovoImporto
+  this.saldo = Number.parseFloat(this.saldo.toFixed(2))
+  if (this.ultimi_movimenti.includes(movimentoId)) {
+    await this.save()
+    return this.saldo
+  }
+  if (this.ultimi_movimenti.length < 10) {
+    this.ultimi_movimenti.push(movimentoId)
+  } else {
+    this.ultimi_movimenti.shift()
+    this.ultimi_movimenti.push(movimentoId)
+  }
+  await this.save()
 
-export default fondoModel
+  return this.saldo
+}
+
+export default mongoose.model('Fondo', fondoSchema, 'fondo')

@@ -18,7 +18,6 @@ describe('Testing Ufficiali endpoint', () => {
     ufficialeSchema.deleteMany()
     await disconnectDB()
   })
-  // eslint-disable-next-line no-undef
 
   describe('POST /ufficiali', () => {
     afterEach(async () => {
@@ -29,7 +28,7 @@ describe('Testing Ufficiali endpoint', () => {
       expect(response.status).toBe(StatusCodes.CREATED)
       const resBody = response.body as SuccessResponse<Ufficiale>
       expect(resBody.success).toBe(true)
-      expect(resBody.data[0]).toMatchObject({
+      expect(resBody.data).toMatchObject({
         ...ufficialeSenzaErrori,
         data_imbarco: ufficialeSenzaErrori.data_imbarco?.toISOString(),
         attivo: true
@@ -85,8 +84,7 @@ describe('Testing Ufficiali endpoint', () => {
 
       expect(response.status).toBe(StatusCodes.OK)
       const resBody = response.body as SuccessResponse<Ufficiale>
-      expect(resBody.data).not.toHaveLength(0)
-      expect(resBody.data[0]).toMatchObject({
+      expect((resBody.data as Array<Ufficiale>)[0]).toMatchObject({
         ...ufficialiTest[0],
         data_imbarco: ufficialiTest[0].data_imbarco?.toISOString()
       })
@@ -97,8 +95,7 @@ describe('Testing Ufficiali endpoint', () => {
 
       expect(response1.status).toBe(StatusCodes.OK)
       const resBody1 = response1.body as SuccessResponse<Ufficiale>
-      expect(resBody1.data).not.toHaveLength(0)
-      expect(resBody1.data[0]).toMatchObject({
+      expect((resBody1.data as Array<Ufficiale>)[0]).toMatchObject({
         ...ufficialiTest[1],
         data_imbarco: ufficialiTest[1].data_imbarco?.toISOString()
       })
@@ -112,8 +109,7 @@ describe('Testing Ufficiali endpoint', () => {
       const urlRicerca = `${API_BASE_PATH}/${_id}`
       const response = await request(app).get(urlRicerca)
       expect(response.status).toBe(StatusCodes.OK)
-      expect(response.body.data).toHaveLength(1)
-      expect(response.body.data[0]).toMatchObject(ufficiale[0])
+      expect(response.body.data).toMatchObject(ufficiale[0])
     })
   })
 
@@ -129,7 +125,7 @@ describe('Testing Ufficiali endpoint', () => {
       const response = await request(app).put(`${API_BASE_PATH}/${_id}`).send(nuoviDati)
 
       expect(response.status).toBe(StatusCodes.OK)
-      const ufficialeAggiornato = response.body.data[0] as Ufficiale
+      const ufficialeAggiornato = response.body.data
       expect(ufficialeAggiornato).toMatchObject({
         ...ufficialeAggiornato,
         ...nuoviDati
