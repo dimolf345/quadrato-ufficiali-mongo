@@ -1,6 +1,7 @@
 import http from 'http'
 import app from './app'
 import { connectDB } from './mongoDB'
+import { inizializzaFondo } from './routes/fondo/fondo.controller'
 
 require('dotenv').config()
 
@@ -11,8 +12,9 @@ const server = http.createServer(app)
 
 async function startServer () {
   await connectDB(nodeEnv.trim())
-  server.listen(PORT, () => {
+  server.listen(PORT, async () => {
     console.log(`Listening on port ${PORT}`)
+    inizializzaFondo()
   })
 }
 

@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose'
 import gradi from '../../utils/gradi'
 
-export type Ufficiale = {
+export interface Ufficiale {
   _id?: Schema.Types.ObjectId;
   nome: string;
   cognome: string;

@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongoose'
 
-export type Fondo = {
-  id?: ObjectId;
+export interface IFondo {
+  _id?: ObjectId;
   saldo: number;
-  ultima_modifica: Date
-  ultimi_movimenti: [ObjectId]
+  ultimi_movimenti: ObjectId[]
+  aggiornaSaldoEMovimenti: (nuovoImporto: number, movimentoId: ObjectId) => Promise<number>
 }

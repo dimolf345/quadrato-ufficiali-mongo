@@ -1,10 +1,9 @@
-import { Mongoose, Schema } from 'mongoose'
+import { Schema, model } from 'mongoose'
 import { Movimento } from '../types/movimento'
-const mongoose: Mongoose = require('mongoose')
 
-const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
+const movimentoSchema: Schema = new Schema<Movimento>({
   creato_da: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Ufficiale',
     required: [true, "Inserire l'ufficiale responsabile del movimento!"]
   },
@@ -15,7 +14,11 @@ const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
   },
   data_movimento: {
     type: Date,
-    required: [true, 'Inserire la data di riferimento del movimento']
+    required: [true, 'Inserire la data di riferimento del movimento'],
+    validate: {
+      validator: controllaDataOdierna,
+      message: () => 'Inserire una data antecedente alla data odierna'
+    }
   },
   importo: {
     type: Number,
@@ -30,4 +33,8 @@ const movimentoSchema: Schema = new mongoose.Schema<Movimento>({
   }
 })
 
-export default mongoose.model<Movimento>('Movimento', movimentoSchema)
+function controllaDataOdierna (data: Date | string) {
+  return data <= new Date()
+}
+
+export default model<Movimento>('Movimento', movimentoSchema, 'movimenti')

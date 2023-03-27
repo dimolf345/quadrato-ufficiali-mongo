@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { AppError, ProductionError } from '../../errorHandler/ErrorClass'
+import { Movimento } from './movimento'
 
 type CustomResponse = {
   success: boolean;
@@ -12,4 +13,11 @@ export type SuccessResponse<T> = CustomResponse & {
 
 export type ErrorResponse = CustomResponse & {
   error: Partial<AppError | ProductionError>;
+}
+
+export type SuccessResponseWithBalance = CustomResponse & {
+  data: {
+    movimento: Movimento,
+    nuovoSaldo: number
+  }
 }
