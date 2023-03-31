@@ -9,9 +9,11 @@ const app: Express = express()
 
 const PORT = process.env.PORT
 
-app.use(cors({
-  origin: [`http://localhost:${PORT}`]
-}))
+app.use(
+  cors({
+    origin: ['http://localhost']
+  })
+)
 app.use(express.json())
 app.use('/api/v1', apiv1)
 
