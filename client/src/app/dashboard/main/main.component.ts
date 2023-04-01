@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/core/api.service';
+import { IUfficiale } from 'src/app/shared/interfaces';
 
 @Component({
   selector: 'app-main',
@@ -9,8 +10,7 @@ import { ApiService } from 'src/app/core/api.service';
       <ul>
         <li *ngFor="let ufficiale of ufficiali$ | async">
           <p>
-            {{ ufficiale.grado }} + {{ ufficiale.nome }} +
-            {{ ufficiale.cognome }}
+            {{ ufficiale.grado }} {{ ufficiale.nome }} {{ ufficiale.cognome }}
           </p>
         </li>
       </ul>
@@ -22,11 +22,11 @@ import { ApiService } from 'src/app/core/api.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  ufficiali$: Observable<any> = new Observable();
+  ufficiali$: Observable<IUfficiale[]> = new Observable();
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.ufficiali$ = this.api.getOfficer();
+    this.ufficiali$ = this.api.caricaUfficiali();
   }
 }

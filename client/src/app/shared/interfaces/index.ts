@@ -1,0 +1,1 @@
+export {IUfficiale} from './ufficiale'
