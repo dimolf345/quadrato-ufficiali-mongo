@@ -5,14 +5,17 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { ResponseInterceptor } from './response.interceptor';
+import { UfficialiService } from './api/ufficiali.service';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
   imports: [MaterialModule, HttpClientModule],
   exports: [HeaderComponent, FooterComponent],
-  providers: [ApiService, {
+  providers: [{
     provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true
-  }],
+  },
+    UfficialiService
+  ],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
