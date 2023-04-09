@@ -10,7 +10,7 @@ export class UfficialiService {
   constructor(private http: HttpClient) { }
 
   caricaUfficiali() {
-    return this.http.get<IUfficiale[]>(`${this.API_BASE_URL}/ufficiali`, {
+    return this.http.get<IUfficiale[]>(`${this.API_BASE_URL}`, {
       responseType: "json"
     });
   }

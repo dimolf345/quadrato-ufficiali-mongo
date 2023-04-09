@@ -3,7 +3,6 @@ import { HeaderComponent } from './layout/header/header.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ApiService } from './api.service';
 import { ResponseInterceptor } from './response.interceptor';
 import { UfficialiService } from './api/ufficiali.service';
 

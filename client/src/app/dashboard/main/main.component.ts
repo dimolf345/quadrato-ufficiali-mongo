@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from 'src/app/core/api.service';
+import { UfficialiService } from 'src/app/core/api/ufficiali.service';
 import { IUfficiale } from 'src/app/shared/interfaces';
 
 @Component({
@@ -14,6 +14,7 @@ import { IUfficiale } from 'src/app/shared/interfaces';
           </p>
         </li>
       </ul>
+      <app-aggiungi-ufficiale></app-aggiungi-ufficiale>
       <button routerLink="/" mat-flat-button color="primary">
         Vai alla home page
       </button>
@@ -24,9 +25,9 @@ import { IUfficiale } from 'src/app/shared/interfaces';
 export class MainComponent implements OnInit {
   ufficiali$: Observable<IUfficiale[]> = new Observable();
 
-  constructor(private api: ApiService) { }
+  constructor(private ufficialiService: UfficialiService) { }
 
   ngOnInit(): void {
-    this.ufficiali$ = this.api.caricaUfficiali();
+    this.ufficiali$ = this.ufficialiService.caricaUfficiali()
   }
 }
