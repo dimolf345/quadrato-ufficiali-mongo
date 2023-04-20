@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { IUfficiale } from 'src/app/shared/interfaces';
+import * as fromUfficiali from '../../ngrx/store/actions/ufficiali.actions'
 import gradi from 'src/app/shared/utils/gradi';
 
 @Component({
@@ -9,6 +12,7 @@ import gradi from 'src/app/shared/utils/gradi';
   styleUrls: ['./aggiungi-ufficiale.component.scss']
 })
 export class AggiungiUfficialeComponent {
+
   public nuovoUfficialeForm = new FormGroup({
     grado: new FormControl('', Validators.required),
     nome: new FormControl('', Validators.required),
@@ -19,8 +23,12 @@ export class AggiungiUfficialeComponent {
   })
   gradi = gradi;
 
+  constructor(private store: Store) { }
+
 
   onSubmit() {
-    console.log(this.nuovoUfficialeForm)
+    const nuovoUfficiale = this.nuovoUfficialeForm.value as IUfficiale
+    this.nuovoUfficialeForm.reset()
+    this.store.dispatch(fromUfficiali.aggiungiUfficiale({ ufficiale: nuovoUfficiale }))
   }
 }

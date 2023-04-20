@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { IUfficiale } from '../../shared/interfaces';
+import { filter, share, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,14 @@ export class UfficialiService {
   caricaUfficiali() {
     return this.http.get<IUfficiale[]>(`${this.API_BASE_URL}`, {
       responseType: "json"
-    });
+    }).pipe(
+      shareReplay()
+    );
+  }
+
+  aggiungiUfficiale(nuovoUfficiale: IUfficiale) {
+    return this.http.post<IUfficiale>(this.API_BASE_URL, nuovoUfficiale).pipe(
+      shareReplay()
+    )
   }
 }
