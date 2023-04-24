@@ -13,14 +13,15 @@ export class SnackbarService {
 
   defaultSnackbar(
     message: string,
-    theme: 'error' | 'standar' = 'standar',
+    theme: 'errore' | 'standard' = 'standard',
     duration: number = 3000
-  ) {
+  ): number {
     this.snackbar.open(message, '', {
       duration,
       horizontalPosition: 'center',
       verticalPosition: 'top',
-      panelClass: theme === 'error' ? ['snackbar__error'] : []
+      panelClass: theme === 'errore' ? 'snackbar__error' : 'snackbar'
     })
+    return duration
   }
 }

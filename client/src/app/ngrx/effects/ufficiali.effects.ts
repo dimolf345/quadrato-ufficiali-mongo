@@ -10,7 +10,6 @@ export class UfficialiEffects {
     ofType(fromUfficiali.caricaUfficiali),
     concatMap(() => this.ufficialiService.caricaUfficiali().pipe(
       map((res) => {
-        console.log(res)
         return fromUfficiali.ufficialiCaricati({
           ufficiali: res
         })
@@ -22,7 +21,6 @@ export class UfficialiEffects {
     ofType(fromUfficiali.aggiungiUfficiale),
     switchMap((action) => this.ufficialiService.aggiungiUfficiale(action.ufficiale).pipe(
       map((res) => {
-        console.log(res)
         return fromUfficiali.caricaUfficiali()
       })
     ))

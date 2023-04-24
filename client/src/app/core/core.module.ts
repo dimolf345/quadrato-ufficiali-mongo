@@ -1,5 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { StoreModule } from '@ngrx/store'
+import { Store, StoreModule } from '@ngrx/store'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './layout/header/header.component';
@@ -10,14 +10,21 @@ import { UfficialiService } from './api/ufficiali.service';
 import { ufficialiFeature } from '../ngrx/store/reducers/ufficiali.reducer';
 import { EffectsModule } from '@ngrx/effects'
 import { UfficialiEffects } from '../ngrx/effects/ufficiali.effects';
+import { UIFeature } from '../ngrx/store/reducers/ui.reducer';
+import { UIEffects } from '../ngrx/effects/ui.effects';
+import { ErrorInterceptor } from './error.interceptor';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
-  imports: [MaterialModule, HttpClientModule, StoreModule.forFeature(ufficialiFeature), EffectsModule.forFeature(UfficialiEffects)],
+  imports: [MaterialModule, HttpClientModule, StoreModule.forFeature(ufficialiFeature),
+    StoreModule.forFeature(UIFeature),
+    EffectsModule.forFeature([UfficialiEffects, UIEffects])],
   exports: [HeaderComponent, FooterComponent],
-  providers: [{
-    provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true
-  },
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true
+    },
     UfficialiService
   ],
 })

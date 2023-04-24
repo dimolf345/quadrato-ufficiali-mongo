@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IUfficiale } from 'src/app/shared/interfaces';
 import * as fromUfficiali from '../../ngrx/store/actions/ufficiali.actions'
+import * as fromUI from '../../ngrx/store/actions/ui.actions'
 import { selectUfficiali } from 'src/app/ngrx/selectors/ufficiali.selector';
 import { AppState } from 'src/app/ngrx/store/AppState';
 
@@ -35,6 +36,5 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.ufficiali$ = this.store.select(selectUfficiali)
   }
-
 
 }

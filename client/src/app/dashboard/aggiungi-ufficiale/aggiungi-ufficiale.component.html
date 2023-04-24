@@ -37,4 +37,7 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   <button color="primary" mat-flat-button>Aggiungi ufficiale</button>
+  <div *ngIf="error">
+    {{error}}
+  </div>
 </form>

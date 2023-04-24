@@ -55,3 +55,28 @@ body {
 mat-toolbar {
   justify-content: center;
 }
+
+.mat-mdc-simple-snack-bar {
+  white-space: pre-line;
+  text-align: center;
+
+  & > * {
+    line-height: 1.5 !important;
+    font-size: 20px !important;
+  }
+}
+
+mat-snack-bar-container {
+  margin: 68px !important;
+}
+
+.snackbar__error {
+  .mdc-snackbar__surface {
+    padding: 0 !important;
+  }
+
+  .mat-mdc-simple-snack-bar {
+    background-color: #ec407a !important;
+    border-radius: 5px;
+  }
+}
