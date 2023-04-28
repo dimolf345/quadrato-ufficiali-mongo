@@ -35,9 +35,6 @@ export class AggiungiUfficialeComponent {
     this.ufficialiService.aggiungiUfficiale(nuovoUfficiale).subscribe({
       next: (res) => this.store.dispatch(fromUfficiali.caricaUfficiali()),
       error: (error) => this.error = error
-    }
-
-
-    )
+    })
   }
 }

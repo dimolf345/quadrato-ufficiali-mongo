@@ -8,6 +8,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { CustomDateAdapter } from './utils/customDateAdapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatTableModule } from '@angular/material/table'
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -21,6 +23,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
       useClass: CustomDateAdapter
     }
   ],
-  exports: [MatToolbarModule, MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSnackBarModule],
+  exports: [MatToolbarModule, MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSnackBarModule, MatTableModule, MatSortModule],
 })
 export class MaterialModule { }

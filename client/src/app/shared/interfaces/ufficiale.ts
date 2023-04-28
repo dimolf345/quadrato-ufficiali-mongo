@@ -9,7 +9,7 @@ export interface IUfficiale {
   ddq: boolean;
   pt?: string;
   temporaneo_imbarco: boolean;
-  data_sbarco: Date;
+  data_sbarco?: Date;
   attivo: boolean
 }
 

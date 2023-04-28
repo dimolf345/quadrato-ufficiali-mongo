@@ -7,9 +7,10 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MainComponent } from './main/main.component';
 import { MaterialModule } from '../shared/material.module';
 import { AggiungiUfficialeComponent } from './aggiungi-ufficiale/aggiungi-ufficiale.component';
+import { TabellaUfficialiComponent } from './tabella-ufficiali/tabella-ufficiali.component';
 
 @NgModule({
-  declarations: [MainComponent, AggiungiUfficialeComponent],
+  declarations: [MainComponent, AggiungiUfficialeComponent, TabellaUfficialiComponent],
   imports: [CommonModule, ReactiveFormsModule, DashboardRoutingModule, MaterialModule],
   exports: [MainComponent],
 })
