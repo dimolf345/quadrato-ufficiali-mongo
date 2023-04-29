@@ -13,12 +13,15 @@ import { UfficialiEffects } from '../ngrx/effects/ufficiali.effects';
 import { UIFeature } from '../ngrx/store/reducers/ui.reducer';
 import { UIEffects } from '../ngrx/effects/ui.effects';
 import { ErrorInterceptor } from './error.interceptor';
+import { fondoFeature } from '../ngrx/store/reducers/fondo.reducer';
+import { fondoEffects } from '../ngrx/effects/fondo.effects';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
   imports: [MaterialModule, HttpClientModule, StoreModule.forFeature(ufficialiFeature),
     StoreModule.forFeature(UIFeature),
-    EffectsModule.forFeature([UfficialiEffects, UIEffects])],
+    StoreModule.forFeature(fondoFeature),
+    EffectsModule.forFeature([UfficialiEffects, UIEffects, fondoEffects])],
   exports: [HeaderComponent, FooterComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

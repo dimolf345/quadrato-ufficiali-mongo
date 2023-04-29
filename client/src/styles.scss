@@ -1,6 +1,8 @@
+@use "@angular/material" as mat;
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Alata:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Homemade+Apple&display=swap");
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 html,
 body {
@@ -10,6 +12,13 @@ body {
   margin: 0;
   font-family: "Alata", "Helvetica Neue", sans-serif;
   font-weight: 500;
+}
+
+$primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+
+.color-primary {
+  background-color: $primary-color !important;
+  color: white !important;
 }
 
 .w-100 {
@@ -70,4 +79,17 @@ mat-snack-bar-container {
     background-color: #ec407a !important;
     border-radius: 5px;
   }
+}
+
+.mat-sort-header-container {
+  color: currentColor !important;
+}
+
+.mat-data-table__header-cell,
+.mdc-data-table__header-cell {
+  color: inherit;
+}
+
+.mat-sort-header-arrow {
+  color: white !important;
 }

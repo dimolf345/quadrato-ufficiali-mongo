@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { IUfficiale } from '../../shared/interfaces';
-import { filter, share, shareReplay, tap } from 'rxjs';
+import { shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
