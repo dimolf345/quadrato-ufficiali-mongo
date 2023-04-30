@@ -15,6 +15,10 @@ import { UIEffects } from '../ngrx/effects/ui.effects';
 import { ErrorInterceptor } from './error.interceptor';
 import { fondoFeature } from '../ngrx/store/reducers/fondo.reducer';
 import { fondoEffects } from '../ngrx/effects/fondo.effects';
+import { FondoService } from './api/fondo.service';
+import { SnackbarService } from './snackbar.service';
+import { MovimentiService } from './api/movimenti.service';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
@@ -28,7 +32,11 @@ import { fondoEffects } from '../ngrx/effects/fondo.effects';
     {
       provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true
     },
-    UfficialiService
+    UfficialiService,
+    FondoService,
+    SnackbarService,
+    MovimentiService,
+    CurrencyPipe
   ],
 })
 export class CoreModule {

@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { IUfficiale } from '../../shared/interfaces';
 import { shareReplay } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UfficialiService {
   private API_BASE_URL = 'http://localhost:8000/api/v1/ufficiali';
   constructor(private http: HttpClient) { }
