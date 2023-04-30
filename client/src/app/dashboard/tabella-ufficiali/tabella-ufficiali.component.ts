@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { IUfficiale } from 'src/app/shared/interfaces';
@@ -7,6 +7,7 @@ import { IUfficiale } from 'src/app/shared/interfaces';
   selector: 'app-tabella-ufficiali',
   templateUrl: './tabella-ufficiali.component.html',
   styleUrls: ['./tabella-ufficiali.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabellaUfficialiComponent implements OnChanges, AfterViewInit {
 
