@@ -1,7 +1,8 @@
+@use "@angular/material" as mat;
 @import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
 @import url("https://fonts.googleapis.com/css2?family=Alata:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Homemade+Apple&display=swap");
-@import "./my-theme.scss";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 html,
 body {
@@ -11,6 +12,17 @@ body {
   margin: 0;
   font-family: "Alata", "Helvetica Neue", sans-serif;
   font-weight: 500;
+}
+
+$primary-color: mat.get-color-from-palette(mat.$indigo-palette, 500);
+
+.color-primary {
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 .app {
@@ -31,14 +43,6 @@ body {
   text-align: center !important;
 }
 
-.color-primary {
-  color: map-get($my-primary, 500);
-}
-
-.color-warn {
-  color: map-get($my-warn, 500);
-}
-
 .mat-mdc-form-field {
   display: block !important;
   margin-bottom: 20px;
@@ -46,4 +50,46 @@ body {
 
 .mat-mdc-card-title {
   margin: 20px 0 0 0 !important;
+}
+
+mat-toolbar {
+  justify-content: center;
+}
+
+.mat-mdc-simple-snack-bar {
+  white-space: pre-line;
+  text-align: center;
+
+  & > * {
+    line-height: 1.5 !important;
+    font-size: 20px !important;
+  }
+}
+
+mat-snack-bar-container {
+  margin: 68px !important;
+}
+
+.snackbar__error {
+  .mdc-snackbar__surface {
+    padding: 0 !important;
+  }
+
+  .mat-mdc-simple-snack-bar {
+    background-color: #ec407a !important;
+    border-radius: 5px;
+  }
+}
+
+.mat-sort-header-container {
+  color: currentColor !important;
+}
+
+.mat-data-table__header-cell,
+.mdc-data-table__header-cell {
+  color: inherit;
+}
+
+.mat-sort-header-arrow {
+  color: white !important;
 }
