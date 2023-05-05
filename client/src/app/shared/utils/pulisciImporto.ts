@@ -1,9 +1,17 @@
-// this.nuovoMovimentoForm.valueChanges.subscribe((form) => {
+export function checkFormattaImporto(input: string) {
+  return !(input.endsWith(',') || input.endsWith('.') || (input.length === 1 && input.startsWith('€')))
+}
 
-//   if (form.importo) {
-//     let importoFiltrato = form.importo!.replace(/€/g, '').replace(/^0\d/, '')
-//     this.nuovoMovimentoForm.patchValue({
-//       importo: this.currencyPipe.transform(importoFiltrato, 'EUR', 'symbol', '1.0-2')
-//     }, { emitEvent: false })
-//   }
-// })
+
+//Formatta il numero utilizzando il metodo parseFloat controllando
+//prima se l'utente ha premuto la virgola per intendere la cifra decimale
+export function formattaImporto(input: string) {
+  let importoFormattato = ''
+  if (input.at(-2) === ',') {
+    importoFormattato = input.slice(0, -2).concat('.', input.at(-1)!)
+  } else {
+    importoFormattato = input
+  }
+  importoFormattato = importoFormattato.replace(/[€,]/g, '')
+  return String(parseFloat(importoFormattato) || 0)
+}

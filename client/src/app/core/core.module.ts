@@ -19,13 +19,18 @@ import { FondoService } from './api/fondo.service';
 import { SnackbarService } from './snackbar.service';
 import { MovimentiService } from './api/movimenti.service';
 import { CurrencyPipe } from '@angular/common';
+import { movimentiFeature } from '../ngrx/store/reducers/movimenti.reducer';
+import { MovimentiEffects } from '../ngrx/effects/movimenti.effects';
+import { LoadingService } from './loading.service';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
-  imports: [MaterialModule, HttpClientModule, StoreModule.forFeature(ufficialiFeature),
+  imports: [MaterialModule, SharedModule, HttpClientModule, StoreModule.forFeature(ufficialiFeature),
     StoreModule.forFeature(UIFeature),
     StoreModule.forFeature(fondoFeature),
-    EffectsModule.forFeature([UfficialiEffects, UIEffects, fondoEffects])],
+    StoreModule.forFeature(movimentiFeature),
+    EffectsModule.forFeature([UfficialiEffects, UIEffects, fondoEffects, MovimentiEffects])],
   exports: [HeaderComponent, FooterComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -36,7 +41,8 @@ import { CurrencyPipe } from '@angular/common';
     FondoService,
     SnackbarService,
     MovimentiService,
-    CurrencyPipe
+    CurrencyPipe,
+    LoadingService
   ],
 })
 export class CoreModule {

@@ -4,7 +4,7 @@ import * as fromUI from '../store/actions/ui.actions'
 import { SnackbarService } from 'src/app/core/snackbar.service';
 import { delay, map, of, tap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectErrore } from '../selectors/ui.selector';
+import { selectErrore } from '../store/selectors/ui.selector';
 import { AppState } from '../store/AppState';
 
 

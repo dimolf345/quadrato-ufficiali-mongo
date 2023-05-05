@@ -3,15 +3,26 @@
   <div class="form-row">
     <mat-form-field class="form-control-small">
       <mat-label>Creato da</mat-label>
-      <mat-select formControlName="creato_da">
+      <mat-select formControlName="creato_da" [value]="" placeholder="--Seleziona un ufficiale--">
+        <mat-option [value]="">--Seleziona un ufficiale--</mat-option>
         <mat-option *ngFor="let ufficiale of ufficiali" [value]=ufficiale._id>
           {{ufficiale.grado}} {{ufficiale.nome}} {{ufficiale.cognome}}
         </mat-option>
       </mat-select>
+      <mat-error>Questo campo è obbligatorio</mat-error>
     </mat-form-field>
+    <mat-button-toggle-group [formControl]="tipoMovimento" [ngStyle]="{'margin-bottom': '2rem'}">
+      <mat-button-toggle value="spesa">Spesa</mat-button-toggle>
+      <mat-button-toggle value="incasso">Incasso</mat-button-toggle>
+    </mat-button-toggle-group>
     <mat-form-field>
       <mat-label>Importo</mat-label>
-      <input matInput type="text" formControlName="importo">
+      <input matInput type="text" [min]="0" formControlName="importo">
+      <mat-hint>Indicare l'importo in valore assoluto. Usare il tab spesa o incasso per togliere o aggiungere dal
+        fondo.</mat-hint>
+      <mat-error *ngIf="nuovoMovimentoForm.controls.importo.errors?.importoNonValido">
+        Importo non valido. Il valore deve essere sempre maggiore di 0.
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Descrizione</mat-label>
@@ -26,13 +37,14 @@
   </div>
   <mat-form-field>
     <mat-label>Data movimento</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="data_movimento">
+    <input matInput [max]="maxDate" [matDatepicker]="picker" formControlName="data_movimento">
     <mat-hint>DD/MM/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker">
     </mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <button color="primary" mat-flat-button>Aggiungi movimento</button>
+  <app-loading-button [disabled]="!nuovoMovimentoForm.valid" text="Aggiungi movimento"
+    [loading]="loading$"></app-loading-button>
   <div *ngIf="error">
     {{error}}
   </div>

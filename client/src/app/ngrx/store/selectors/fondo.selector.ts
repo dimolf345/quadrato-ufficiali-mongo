@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
-import { AppState } from "../store/AppState";
-import { FondoState } from "../store/reducers/fondo.reducer";
+import { AppState } from "../AppState";
+import { FondoState } from "../reducers/fondo.reducer";
 
 export const fondoFeature = (state: AppState) => state.fondo;
 

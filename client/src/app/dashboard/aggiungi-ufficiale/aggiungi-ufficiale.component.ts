@@ -3,10 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { IUfficiale } from 'src/app/shared/interfaces';
 import gradi from 'src/app/shared/utils/gradi';
-import { UfficialiService } from 'src/app/core/api/ufficiali.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/ngrx/store/AppState';
 import * as fromUfficiali from '../../ngrx/store/actions/ufficiali.actions'
+import { resettaFormECampi } from 'src/app/shared/utils/resettaFormECampi';
 
 @Component({
   selector: 'app-aggiungi-ufficiale',
@@ -26,15 +26,13 @@ export class AggiungiUfficialeComponent {
   })
   gradi = gradi;
 
-  constructor(private ufficialiService: UfficialiService, private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
 
   onSubmit() {
     const nuovoUfficiale = this.nuovoUfficialeForm.value as IUfficiale
     this.nuovoUfficialeForm.reset()
-    this.ufficialiService.aggiungiUfficiale(nuovoUfficiale).subscribe({
-      next: (res) => this.store.dispatch(fromUfficiali.caricaUfficiali()),
-      error: (error) => this.error = error
-    })
+    resettaFormECampi(this.nuovoUfficialeForm)
+    this.store.dispatch(fromUfficiali.aggiungiUfficialeAPI({ payload: nuovoUfficiale }))
   }
 }

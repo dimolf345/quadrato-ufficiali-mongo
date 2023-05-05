@@ -10,7 +10,8 @@ import { CustomDateAdapter } from './utils/customDateAdapter';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTableModule } from '@angular/material/table'
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,6 @@ import { MatSortModule } from '@angular/material/sort';
       useClass: CustomDateAdapter
     }
   ],
-  exports: [MatToolbarModule, MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSnackBarModule, MatTableModule, MatSortModule],
+  exports: [MatToolbarModule, MatButtonModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatSnackBarModule, MatTableModule, MatSortModule, MatButtonToggleModule, MatProgressSpinnerModule],
 })
 export class MaterialModule { }

@@ -10,10 +10,11 @@ import { AggiungiUfficialeComponent } from './aggiungi-ufficiale/aggiungi-uffici
 import { TabellaUfficialiComponent } from './tabella-ufficiali/tabella-ufficiali.component';
 import { DettaglioFondoComponent } from './dettaglio-fondo/dettaglio-fondo.component';
 import { AggiungiMovimentoComponent } from './aggiungi-movimento/aggiungi-movimento.component';
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [MainComponent, AggiungiUfficialeComponent, TabellaUfficialiComponent, DettaglioFondoComponent, AggiungiMovimentoComponent],
-  imports: [CommonModule, ReactiveFormsModule, DashboardRoutingModule, MaterialModule],
   exports: [MainComponent],
+  imports: [CommonModule, ReactiveFormsModule, DashboardRoutingModule, MaterialModule, SharedModule]
 })
 export class DashboardModule { }

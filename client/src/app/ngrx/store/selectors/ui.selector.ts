@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
-import { AppState } from "../store/AppState";
-import { UIState } from "../store/reducers/ui.reducer";
+import { AppState } from "../AppState";
+import { UIState } from "../reducers/ui.reducer";
 
 
 export const UIFeature = (state: AppState) => state.ui

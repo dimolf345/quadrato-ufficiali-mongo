@@ -24,10 +24,10 @@ export const ufficialiFeature = createFeature({
       ufficiali: payload.ufficiali,
       aggiornaUfficiali: false
     })),
-    on(fromUfficiali.aggiungiUfficiale, ((state, action) => ({
-      ufficiali: [...state.ufficiali, action.ufficiale],
+    on(fromUfficiali.ufficialeAggiuntoAPI, (state, action) => ({
+      ufficiali: [...state.ufficiali, action.payload],
       aggiornaUfficiali: false
-    })))
+    }))
   )
 })
 

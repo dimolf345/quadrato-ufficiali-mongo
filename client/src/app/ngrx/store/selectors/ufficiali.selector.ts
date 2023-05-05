@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store'
-import { AppState } from '../store/AppState';
-import { UfficialiState } from '../store/reducers/ufficiali.reducer';
+import { AppState } from '../AppState';
+import { UfficialiState } from '../reducers/ufficiali.reducer';
 
 
 export const ufficialiFeature = (state: AppState) => state.ufficiali;
